@@ -61,6 +61,7 @@ hook.Add("Think", "wanted_check", function()
     end
 end)
 ```
+FOOTAGE OF IT WORKING BELOW CLICK IT!!!!
 [![footage of it working here](https://img.youtube.com/vi/9Lc5tMaPyII/0.jpg)](https://www.youtube.com/watch?v=9Lc5tMaPyII)
 ![](https://strw.club/images/m9xxtfr02zx6t9d.png)
 
