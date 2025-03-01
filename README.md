@@ -42,11 +42,11 @@ local proc_ply = {}
 
 hook.Add("Think", "wanted_check", function()
     for k, v in ipairs(player.GetAll()) do
-        local steamID = v:SteamID()
+        local sidregular = v:SteamID()
 
-        if v:isWanted() and wanted_whitelist[steamID] and not proc_ply[steamID] then
-            proc_ply[steamID] = true
-            RunConsoleCommand("darkrp", "unwanted", steamID)
+        if v:isWanted() and wanted_whitelist[sidregular] and not proc_ply[sidregular] then
+            proc_ply[sidregular] = true
+            RunConsoleCommand("darkrp", "unwanted", sidregular)
         
 
             local wanted_reason = v:getDarkRPVar("wantedReason") or "n/a"
@@ -111,9 +111,9 @@ this system was designed to work with the risk system but it never happened so i
 ```lua
 timer.Create("hitman_timer", 300, 0, function()
     for k, v in ipairs(player.GetAll()) do
-        local steamID = v:SteamID()
+        local sidregular = v:SteamID()
 
-        if wanted_whitelist[steamID] then
+        if wanted_whitelist[sidregular] then
             if v:getDarkRPVar("job") == "Hitman" then
 
                 local everyone = player.GetAll()
@@ -136,20 +136,20 @@ this system automatically bailed people in the whitelist. this worked really wel
 ```lua
 hook.Add("Think", "bail_check", function()
     for k, v in ipairs(player.GetAll()) do
-        local steamID64 = v:SteamID64()
+        local sid = v:SteamID64()
 
-        if v:isArrested() and bail_whitelist[steamID64] and not proc_ply2[steamID64] then
-            proc_ply2[steamID64] = true
+        if v:isArrested() and bail_whitelist[sid] and not proc_ply2[sid] then
+            proc_ply2[sid] = true
         
             net.Start("BWS_Net_BailPlayer")
-            net.WriteString(steamID64) -- any steamid works no distance checks lmao
+            net.WriteString(sid)
             net.SendToServer()
             print("fuckfuckfuck")
 
 
-            proc_ply2[steamID64] = true
-        elseif not v:isArrested() and proc_ply2[steamID64] then
-            proc_ply2[steamID64] = nil
+            proc_ply2[sid] = true
+        elseif not v:isArrested() and proc_ply2[sid] then
+            proc_ply2[sid] = nil
         end
         end
 end)
@@ -184,14 +184,11 @@ end)
 ### anti afk measures
 the bot would obviously get marked as afk if it stands still for a while. it could get demoted from the job if done for too long and despawn if its in spawn. in order to circumvent this i tried adding a good anti afk measure. i found out that constantly toggling +walk on and off which is the modifier for alt-walking (slow walk) would count as player activity. it never moved the player but it also never marked them as afk which was genius!
 ```lua
-timer.Create("respawn_timer", 0.5, 0, function()
-    if not overwatch_ply:Alive() then
-        print("attempting respawn...")
-        RunConsoleCommand("+jump")
-        timer.Simple(0.1, function()
-            RunConsoleCommand("-jump")
-        end)
-    end
+timer.Create("anti-afk", 0.5, 0, function()
+    RunConsoleCommand("+walk")
+    timer.Simple(0.1, function()
+        RunConsoleCommand("-walk")
+    end)
 end)
 ```
 
