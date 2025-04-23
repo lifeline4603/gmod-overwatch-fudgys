@@ -4,6 +4,8 @@ a garry's mod bot that carried out actions automatically on whitelisted people o
 ## what is overwatch
 overwatch is a bot i personally developed to gain an advantage for a garry's mod server called "fudgy gaming" a few months ago. it would be online 24/7 and was hosted on an actual VPS. this was some random alt account i picked and called "overwatch". what it did was exploit vulnerabilities and abuse tricks to give players in a whitelist an advantage. the bot could automatically remove the wanted status of people, bail people from distances and act as a stash account for trades and withdrawals. if anyone needed money, the account was always stocked up with money.
 
+if you're a server developer i would recommend taking a look into this and see if anything i used can be exploited. in theory all of this should be very easily patchable.
+
 ## how did it work
 the way overwatch functioned was by having a steam account logged in the server at all times. this steam account for 24/7 uptime was hosted on a low end VPS hosted with contabo. the code was relatively simple. it basically just told it to wait for anyone on the whitelist to be wanted for example and to carry out the action. this wasnt perfect. sometimes the bot would crash or have an error. everytime i needed to push an update i would need to restart the game which took minutes and then join the server which also took a while. a high tier vps would have fixed this issue without a doubt.
 
